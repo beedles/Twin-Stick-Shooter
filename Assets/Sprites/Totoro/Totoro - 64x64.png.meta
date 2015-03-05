@@ -1,0 +1,132 @@
+fileFormatVersion: 2
+guid: 135f58ce1e7f776489ef0270ecf3247e
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Totoro - 64x64_0
+    21300002: Totoro - 64x64_1
+    21300004: Totoro - 64x64_2
+    21300006: Totoro - 64x64_3
+    21300008: Totoro - 64x64_4
+    21300010: Totoro - 64x64_5
+    21300012: Totoro - 64x64_6
+    21300014: Totoro - 64x64_7
+    21300016: Totoro - 64x64_8
+    21300018: Totoro - 64x64_9
+    21300020: Totoro - 64x64_10
+    21300022: Totoro - 64x64_11
+    21300024: Totoro - 64x64_12
+    21300026: Totoro - 64x64_13
+    21300028: Totoro - 64x64_14
+    21300030: Totoro - 64x64_15
+    21300032: Totoro - 64x64_16
+    21300034: Totoro - 64x64_17
+    21300036: Totoro - 64x64_18
+    21300038: Totoro - 64x64_19
+    21300040: Totoro - 64x64_20
+    21300042: Totoro - 64x64_21
+    21300044: Totoro - 64x64_22
+    21300046: Totoro - 64x64_23
+    21300048: Totoro - 64x64_24
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  seamlessCubemap: 0
+  textureFormat: 4
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 5
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: Totoro - 64x64_0
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 260
+        width: 52
+        height: 55
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Totoro - 64x64_1
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 256
+        height: 320
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Totoro - 64x64_2
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 193
+        width: 52
+        height: 58
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Totoro - 64x64_3
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 129
+        width: 52
+        height: 54
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Totoro - 64x64_4
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 65
+        width: 52
+        height: 58
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Totoro - 64x64_5
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 3
+        width: 52
+        height: 55
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
