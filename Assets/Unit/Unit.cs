@@ -4,10 +4,10 @@ using System.Collections;
 using TSS;
 
 public class Unit : Photon.MonoBehaviour {
-	public float movement_speed = 1.0f;
+	public float movement_speed = 5.0f;
 	public float fire_rate = 2.0f;
 	public GameObject bullet;	
-	public float projectile_speed = 0.08f;
+	public float projectile_speed = 0.4f;
 	public float projectile_life = 1.0f;
 	public float health = 50f;
 	public float max_health;
@@ -20,6 +20,12 @@ public class Unit : Photon.MonoBehaviour {
 	public GameObject sct_prefab;
 	public Transform sct_transform;
 	//public Texture select_skin;
+	/*SOUNDS*/
+	public AudioClip shoot_sound;
+	public AudioClip hit_sound;
+	public AudioClip death_sound;
+	
+	public bool invulnerable = false;
 	
 	protected Vector3 input_rotation;
 	protected Vector3 input_movement;
@@ -31,13 +37,22 @@ public class Unit : Photon.MonoBehaviour {
 	private float top_of_unit = 0.0f;
 	private float center_of_unit = 0.0f;
 	
+	private AudioSource source;
+	/*private float vol_low_range = 0.5f;
+	private float vol_high_range = 1.0f;*/
+	private float pitch_low_range = 0.9f;
+	private float pitch_high_range = 1.1f;
+	
+	private void Awake() {
+		source = GetComponent<AudioSource>();
+	}
 
 	// Use this for initialization
 	protected virtual void Start () {
 		top_of_unit = gameObject.GetComponent<SpriteRenderer>().bounds.center.y + gameObject.GetComponent<SpriteRenderer>().bounds.extents.y;
 		center_of_unit = gameObject.GetComponent<SpriteRenderer>().bounds.center.x;
 		max_health = health;		
-		unit_health_bar = (GameObject)Instantiate(health_bar, new Vector3(center_of_unit, top_of_unit + 0.1f, 0), Quaternion.identity);
+		unit_health_bar = (GameObject)Instantiate(health_bar, new Vector3(center_of_unit, top_of_unit + 0.5f, 0), Quaternion.identity);
 		unit_health_bar.transform.SetParent(gameObject.transform);
 		//make width of health bar same as sprite
 		unit_health_bar.transform.localScale = new Vector3(gameObject.GetComponent<SpriteRenderer>().bounds.extents.x * 3, 
@@ -48,7 +63,7 @@ public class Unit : Photon.MonoBehaviour {
 	// Update is called once per frame
 	protected virtual void Update () {
 		//bounding_box = WorkManager.CalculateSelectionBox(gameObject.GetComponent<SpriteRenderer>().bounds);
-		Check_Health();
+		
 		Handle_Animation();
 	}
 	
@@ -107,12 +122,38 @@ public class Unit : Photon.MonoBehaviour {
 		Debug.Log(temp_vector);*/
 		temp_vector = (transform.position + (owner_rotation.normalized * .5f));
 		obj_created_bullet = (GameObject) Instantiate(bullet, temp_vector, Quaternion.FromToRotation(Vector3.up, owner_rotation.normalized));
-		obj_created_bullet.tag = "Projectile";
+		//Debug.Log(gameObject.tag);
+		if(gameObject.tag == "Player") {
+			obj_created_bullet.tag = "Player_Projectile";
+		} else if (gameObject.tag == "Enemy") {
+			obj_created_bullet.GetComponent<Projectile>().tag = "Enemy_Projectile";
+		}
+		
 		obj_created_bullet.GetComponent<Projectile>().owner = gameObject;
-		obj_created_bullet.transform.SetParent(gameObject.transform);
+		//obj_created_bullet.transform.SetParent(gameObject.transform);
 		obj_created_bullet.GetComponent<Projectile>().projectile_speed = projectile_speed;
 		obj_created_bullet.GetComponent<Projectile>().projectile_life = projectile_life;
 		//Physics.IgnoreCollision(obj_created_bullet.collider, collider);
+		Play_Sound(shoot_sound);
+	}
+	
+	private void Play_Sound(AudioClip sound) {
+		if(sound != null && source != null) {
+			//float volume = Random.Range(vol_low_range, vol_high_range);
+			source.pitch = Random.Range(pitch_low_range, pitch_high_range);
+			//volume *= gain;
+			source.PlayOneShot(sound);
+		}
+	}
+	
+	//This is a bad way to do sound if we want to use the 3d sound system
+	private void Play_Sound_At_Point(AudioClip sound, Vector3 point) {
+		if(sound != null && source != null) {
+			//float volume = Random.Range(vol_low_range, vol_high_range);
+			source.pitch = Random.Range(pitch_low_range, pitch_high_range);
+			//volume *= gain;
+			AudioSource.PlayClipAtPoint(sound, point);
+		}
 	}
 	
 	private void Draw_Name() {
@@ -125,31 +166,35 @@ public class Unit : Photon.MonoBehaviour {
 	
 	protected virtual void Check_Health() {
 		if(health <= 0) {
+			Matchmaker matchmaker = (Matchmaker)GameObject.FindObjectOfType<Matchmaker>();
 			if(death_effect != null) {
 				Instantiate(death_effect, transform.position, Quaternion.identity);
 			}
+			Play_Sound_At_Point(death_sound, transform.position);
 			Destroy(gameObject);
 			//Update enemy list
-			if(!is_a_player && PhotonNetwork.isMasterClient) {
-				Matchmaker matchmaker = (Matchmaker)GameObject.FindObjectOfType<Matchmaker>();
+			if(!is_a_player && PhotonNetwork.isMasterClient) {				
 				if(matchmaker != null) {
 					matchmaker.total_enemies--;
 				}
 			}	
+			if(is_a_player && gameObject.GetComponent<PhotonView>().isMine) {
+				matchmaker.is_alive = false;
+			}
 		}
 	}
 	
 	private void Update_Health_Bar(float current_health_percentage) {
-		unit_health_bar.transform.FindChild("HealthBar").transform.localScale = new Vector3(current_health_percentage, unit_health_bar.transform.localScale.y, unit_health_bar.transform.localScale.z);
+		unit_health_bar.transform.FindChild("HealthBar").transform.localScale = new Vector3(current_health_percentage, 1, unit_health_bar.transform.localScale.z);
 	}
 	
-	protected virtual void Create_SCT_Popup(float damage) {
+	private void Create_SCT_Popup(float damage) {
 		if(sct_prefab == null || sct_transform == null) {
 			return;
 		}
 		top_of_unit = gameObject.GetComponent<SpriteRenderer>().bounds.center.y + gameObject.GetComponent<SpriteRenderer>().bounds.extents.y;
 		center_of_unit = gameObject.GetComponent<SpriteRenderer>().bounds.center.x;
-		GameObject unit_sct = (GameObject) Instantiate(sct_prefab, new Vector3(center_of_unit, top_of_unit + 0.1f, 0), Quaternion.identity);
+		GameObject unit_sct = (GameObject) Instantiate(sct_prefab, new Vector3(center_of_unit, top_of_unit + 0.5f, 0), Quaternion.identity);
 		unit_sct.transform.SetParent(gameObject.transform);
 		unit_sct.gameObject.GetComponentInChildren<Text>().text = damage.ToString();
 	}
@@ -157,4 +202,13 @@ public class Unit : Photon.MonoBehaviour {
 	public bool Is_Player() {
 		return is_a_player;
 	}	
+	
+	protected virtual void On_Hit(float damage) {
+		Create_SCT_Popup(damage);
+		if(!this.invulnerable) {
+			this.health -= damage;
+		}
+		Play_Sound(hit_sound);
+		Check_Health();
+	}
 }

@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Player : Unit {
-	public float camera_height = -5.0f;
+	public float camera_height = -40.0f;
 
 	private float lastSynchronizationTime = 0f;
 	private float syncDelay = 0f;
@@ -12,6 +12,7 @@ public class Player : Unit {
 	private Vector3 temp_vector;
 	private Vector3 temp_vector2;
 	private bool spawned = false;
+	public int movement_direction = 0;
 	
 	protected override void Start() {		
 		base.Start();
@@ -54,18 +55,22 @@ public class Player : Unit {
 		if(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) {
 			rigid_body.MovePosition(rigid_body.position + Vector3.right * -movement_speed / 50);
 			GetComponent<Rigidbody>().velocity += Vector3.right * -movement_speed;
+			movement_direction = 1;
 		}
 		if(Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) {
 			rigid_body.MovePosition(rigid_body.position + Vector3.right * movement_speed / 50);
 			GetComponent<Rigidbody>().velocity += Vector3.right * movement_speed;
+			movement_direction = 3;
 		}	
 		if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) {
 			rigid_body.MovePosition(rigid_body.position + Vector3.up * movement_speed / 50);
 			GetComponent<Rigidbody>().velocity += Vector3.up * movement_speed;
+			movement_direction = 2;
 		}	
 		if(Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) {
 			rigid_body.MovePosition(rigid_body.position + Vector3.up * -movement_speed / 50);
 			GetComponent<Rigidbody>().velocity += Vector3.up * -movement_speed;
+			movement_direction = 0;
 		}			
 		//Fix diagonal movement being faster than up/down/left/right
 		if(Mathf.Abs(GetComponent<Rigidbody>().velocity.x) > 0 && Mathf.Abs(GetComponent<Rigidbody>().velocity.y) > 0) {
@@ -124,7 +129,6 @@ public class Player : Unit {
 	
 	[RPC]
 	void Do_Hit(float damage) {
-		Create_SCT_Popup(damage);
-		this.health -= damage;
+		On_Hit(damage);
 	}
 }

@@ -9,7 +9,7 @@ public class Enemy : Unit {
 	AI_MODE AI_STATE = AI_MODE.BASIC;
 	
 	//Movement Modes
-	enum MOVEMENT_MODE{	MOVE_TOWARDS,
+	private enum MOVEMENT_MODE{	MOVE_TOWARDS,
 						MOVE_AWAY	};
 	MOVEMENT_MODE MOVEMENT_STATE = MOVEMENT_MODE.MOVE_TOWARDS;
 
@@ -84,8 +84,7 @@ public class Enemy : Unit {
 	
 	[RPC]
 	void Do_Hit(float damage) {
-		Create_SCT_Popup(damage);
-		this.health -= damage;
+		On_Hit(damage);		
 	}
 	
 	[RPC]
