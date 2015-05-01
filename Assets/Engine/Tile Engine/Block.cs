@@ -16,6 +16,8 @@ public class Block {
 	public struct Tile {
 		public int x;
 		public int y;
+		/*public int sortingLayerID;
+		public int sortingOrder;*/
 	}
 	
 	public virtual Tile TexturePosition() {
@@ -50,11 +52,6 @@ public class Block {
 	public virtual Vector2[] Face_UVs() {
 		Vector2[] UVs = new Vector2[4];
 		Tile tile_pos = TexturePosition();
-		
-		/*UVs[0] = new Vector2(tile_width * tile_pos.x + tile_size, tile_size * tile_pos.y);
-		UVs[1] = new Vector2(tile_size * tile_pos.x + tile_size, tile_size * tile_pos.y + tile_size);
-		UVs[2] = new Vector2(tile_size * tile_pos.x, tile_size * tile_pos.y + tile_size);
-		UVs[3] = new Vector2(tile_size * tile_pos.x, tile_size * tile_pos.y);*/
 		
 		//Start from bottom right corner and work counter-clockwise
 		UVs[0] = new Vector2(tile_width * tile_pos.x + tile_pos.x * padding_width + tile_width,

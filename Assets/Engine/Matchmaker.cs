@@ -81,7 +81,7 @@ public class Matchmaker : MonoBehaviour {
 	void OnJoinedRoom() {
 		in_game = true;
 		HUDDebug player_hud = gameObject.GetComponent<HUDDebug>();
-		LoadChunks load_chunk = Camera.main.GetComponent<LoadChunks>();
+		LoadWorld load_chunk = Camera.main.GetComponent<LoadWorld>();
 		load_chunk.do_map = true;
 		//GameObject.Find("Plane").GetComponent<Renderer>().enabled = true;
 		Spawn_Player();

@@ -87,6 +87,33 @@ NavMeshSettings:
     cellSize: .166666657
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &175814521
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 175814522}
+  m_Layer: 0
+  m_Name: Torch_Lit
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &175814522
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 175814521}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.40627146, y: 6.7344923, z: .40625}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
 --- !u!1 &332747437
 GameObject:
   m_ObjectHideFlags: 0
@@ -115,6 +142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chunk_prefab: {fileID: 139504, guid: c3ab55df6fefdd1499c750e6a29c03c9, type: 2}
+  ground_object_prefab: {fileID: 198072, guid: a0095c523ba418f4f8351bd3ab21176b, type: 2}
 --- !u!4 &332747439
 Transform:
   m_ObjectHideFlags: 0
@@ -122,7 +150,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 332747437}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.57212782, y: 4.18766737, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -260,8 +288,8 @@ Camera:
   near clip plane: .300000012
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
-  orthographic size: 5
+  orthographic: 1
+  orthographic size: 8
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -280,7 +308,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 463726351}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -4}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -293,7 +321,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 463726351}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 059ca9d442e908540b3457d84b042873, type: 3}
+  m_Script: {fileID: 11500000, guid: b7c0ced6d26a731418a680991c4f3fcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   world: {fileID: 332747438}
@@ -397,7 +425,7 @@ MonoBehaviour:
   is_alive: 0
   in_game: 0
   mode_set: 0
-  overlay_skin: {fileID: 11400000, guid: df5b75079c4da2749add13cbda32cbd7, type: 2}
+  overlay_skin: {fileID: 0}
 --- !u!4 &1321182638
 Transform:
   m_ObjectHideFlags: 0

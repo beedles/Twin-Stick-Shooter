@@ -17,12 +17,12 @@ public class Chunk : MonoBehaviour {
 	Block [ , , ] blocks = new Block[chunk_size, chunk_size, 1];
 	
 	MeshFilter filter;
-	MeshCollider coll;
+	//MeshCollider coll;
 	
 	// Use this for initialization
 	void Start () {
 		filter = gameObject.GetComponent<MeshFilter>();
-		coll = gameObject.GetComponent<MeshCollider>();
+		//coll = gameObject.GetComponent<MeshCollider>();
 		
 		/*blocks = new Block[chunk_size, chunk_size, depth];
 		

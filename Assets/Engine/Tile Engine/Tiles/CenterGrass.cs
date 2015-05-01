@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class CenterGrass : Block {
@@ -10,6 +10,9 @@ public class CenterGrass : Block {
 		Tile tile = new Tile();
 		tile.x = 3;
 		tile.y = 14;
+		//tile.sortingLayerID
+		
+		
 		
 		return tile;
 	}
