@@ -54,22 +54,22 @@ public class Player : Unit {
 		GetComponent<Rigidbody>().velocity = Vector3.zero;
 		if(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) {
 			rigid_body.MovePosition(rigid_body.position + Vector3.right * -movement_speed / 50);
-			GetComponent<Rigidbody>().velocity += Vector3.right * -movement_speed;
+			GetComponent<Rigidbody>().velocity += Vector3.right * -movement_speed * Time.deltaTime;
 			movement_direction = 1;
 		}
 		if(Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) {
 			rigid_body.MovePosition(rigid_body.position + Vector3.right * movement_speed / 50);
-			GetComponent<Rigidbody>().velocity += Vector3.right * movement_speed;
+			GetComponent<Rigidbody>().velocity += Vector3.right * movement_speed * Time.deltaTime;
 			movement_direction = 3;
 		}	
 		if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) {
 			rigid_body.MovePosition(rigid_body.position + Vector3.up * movement_speed / 50);
-			GetComponent<Rigidbody>().velocity += Vector3.up * movement_speed;
+			GetComponent<Rigidbody>().velocity += Vector3.up * movement_speed * Time.deltaTime;
 			movement_direction = 2;
 		}	
 		if(Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) {
 			rigid_body.MovePosition(rigid_body.position + Vector3.up * -movement_speed / 50);
-			GetComponent<Rigidbody>().velocity += Vector3.up * -movement_speed;
+			GetComponent<Rigidbody>().velocity += Vector3.up * -movement_speed * Time.deltaTime;
 			movement_direction = 0;
 		}			
 		//Fix diagonal movement being faster than up/down/left/right
@@ -82,7 +82,7 @@ public class Player : Unit {
 			if(GetComponent<Rigidbody>().velocity.y < 0) {
 				vel_y *= -1;
 			}
-			GetComponent<Rigidbody>().velocity += new Vector3(vel_x, vel_y, 0);
+			GetComponent<Rigidbody>().velocity += new Vector3(vel_x, vel_y, 0) * Time.deltaTime;
 		}	
 	}	
 	

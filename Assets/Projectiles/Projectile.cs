@@ -22,9 +22,13 @@ public class Projectile : MonoBehaviour {
 		if(time_spent_alive > projectile_life) {
 			Remove_Me();		
 		}
+		
+		//bounding_box = WorkManager.CalculateSelectionBox(gameObject.GetComponent<SpriteRenderer>().bounds);
+	}
+	
+	void FixedUpdate() {
 		transform.Translate(Vector3.up * projectile_speed);
 		transform.position = new Vector3(transform.position.x, transform.position.y, 0);
-		//bounding_box = WorkManager.CalculateSelectionBox(gameObject.GetComponent<SpriteRenderer>().bounds);
 	}
 	
 	void OnGUI() {
