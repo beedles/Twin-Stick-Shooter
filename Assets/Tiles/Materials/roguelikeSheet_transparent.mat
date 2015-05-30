@@ -79,12 +79,23 @@ Material:
           m_Offset: {x: 0, y: 0}
       data:
         first:
+          name: _OverlayTex
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
           name: _SpecGlossMap
         second:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
     m_Floats:
+      data:
+        first:
+          name: _Scale
+        second: 1
       data:
         first:
           name: _Cutoff
@@ -141,6 +152,26 @@ Material:
         first:
           name: _Metallic
         second: 0
+      data:
+        first:
+          name: _Intensity
+        second: 1
+      data:
+        first:
+          name: _CameraScroll
+        second: .140000001
+      data:
+        first:
+          name: _XScrollSpeed
+        second: 0
+      data:
+        first:
+          name: _YScrollSpeed
+        second: 0
+      data:
+        first:
+          name: _RotationSpeed
+        second: 0
     m_Colors:
       data:
         first:
@@ -158,3 +189,7 @@ Material:
         first:
           name: _EmissionColorUI
         second: {r: 1, g: 1, b: 1, a: 1}
+      data:
+        first:
+          name: _AmbientColor
+        second: {r: .5, g: .5, b: .5, a: 1}

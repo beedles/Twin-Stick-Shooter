@@ -54,6 +54,9 @@ TagManager:
   - name: Characters
     uniqueID: 781669273
     locked: 0
+  - name: Overlay
+    uniqueID: 956493825
+    locked: 0
   - name: Light
     uniqueID: 2060608031
     locked: 0

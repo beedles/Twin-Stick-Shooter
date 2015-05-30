@@ -26,11 +26,11 @@ public class CollisionHandler : MonoBehaviour {
 					//Hit Detected
 					//Remove Projectile
 					
-					Destroy(p);
 					//Deal damage to enemy
 					if(PhotonNetwork.isMasterClient) {
 						e.GetPhotonView().RPC ("Do_Hit", PhotonTargets.All, p.GetComponent<Projectile>().owner.GetComponent<Unit>().damage);
 					}
+					Destroy(p);
 				}
 			}
 		}
@@ -45,11 +45,11 @@ public class CollisionHandler : MonoBehaviour {
 					//Hit Detected
 					//Remove Projectile
 					
-					Destroy(p);
 					//Deal damage to enemy
 					if(PhotonNetwork.isMasterClient) {
 						e.GetPhotonView().RPC ("Do_Hit", PhotonTargets.All, p.GetComponent<Projectile>().owner.GetComponent<Unit>().damage);
 					}
+					Destroy(p);
 				}
 			}						
 		}
