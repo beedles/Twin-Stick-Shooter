@@ -31,4 +31,5 @@ MonoBehaviour:
   - PunRespawn
   - RequestForPickupTimes
   - Send_Fire
+  - Give_Experience
   DisableAutoOpenWizard: 0

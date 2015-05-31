@@ -17,6 +17,9 @@ public class Enemy : Unit {
 	protected override void Start () {
 		base.Start();
 		gameObject.tag="Enemy";
+		//Set the level of the enemy
+		Determine_Level();
+		show_name = true;
 	}
 	
 	// Update is called once per frame
@@ -24,6 +27,10 @@ public class Enemy : Unit {
 		base.Update();
 		Find_Input();
 		Process_Movement();		
+	}
+	
+	private void Determine_Level() {
+		Set_Level(1);
 	}
 	
 	protected override void Find_Input() {
@@ -90,5 +97,10 @@ public class Enemy : Unit {
 	[RPC]
 	void Send_Fire(Vector3 input_rotation) {
 		Shoot (input_rotation);
+	}
+	
+	[RPC]
+	void Give_Experience() {
+		//Work out experience to be given
 	}
 }

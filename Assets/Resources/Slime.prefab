@@ -204,7 +204,7 @@ MonoBehaviour:
   max_health: 0
   damage: 5
   show_name: 0
-  unit_name: 
+  unit_name: Baby Slime
   name_skin: {fileID: 0}
   health_bar: {fileID: 190224, guid: 7d29c302504d6b745ac0660ee3e3d71b, type: 2}
   death_effect: {fileID: 143690, guid: 39b10e965eb3b6a44bdb64a6160abc55, type: 2}

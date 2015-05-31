@@ -37,11 +37,15 @@ public class Unit : Photon.MonoBehaviour {
 	private float top_of_unit = 0.0f;
 	private float center_of_unit = 0.0f;
 	
+	private Animator animator;
+	
 	private AudioSource source;
 	/*private float vol_low_range = 0.5f;
 	private float vol_high_range = 1.0f;*/
 	private float pitch_low_range = 0.9f;
 	private float pitch_high_range = 1.1f;
+	
+	private int level = 0;
 	
 	private void Awake() {
 		source = GetComponent<AudioSource>();
@@ -51,6 +55,8 @@ public class Unit : Photon.MonoBehaviour {
 	protected virtual void Start () {
 		top_of_unit = gameObject.GetComponent<SpriteRenderer>().bounds.center.y + gameObject.GetComponent<SpriteRenderer>().bounds.extents.y;
 		center_of_unit = gameObject.GetComponent<SpriteRenderer>().bounds.center.x;
+		animator = gameObject.GetComponent<Animator>();
+		
 		max_health = health;		
 		unit_health_bar = (GameObject)Instantiate(health_bar, new Vector3(center_of_unit, top_of_unit + 0.5f, 0), Quaternion.identity);
 		unit_health_bar.transform.SetParent(gameObject.transform);
@@ -75,8 +81,7 @@ public class Unit : Photon.MonoBehaviour {
 	
 	}
 	
-	protected virtual void Handle_Animation() {
-		Animator animator = gameObject.GetComponent<Animator>();
+	protected virtual void Handle_Animation() {		
 		float angle = Mathf.Atan2(input_rotation.y, input_rotation.x) * Mathf.Rad2Deg;
 		int direction = 0;
 		if(angle > -135.0f && angle <= -45.0f) {
@@ -161,7 +166,7 @@ public class Unit : Photon.MonoBehaviour {
 		Rect bounding_box = WorkManager.CalculateSelectionBox(gameObject.GetComponent<SpriteRenderer>().bounds);
 		Vector3 unit_base = new Vector3(bounding_box.x + bounding_box.width/2, bounding_box.y + bounding_box.height, 0);
 		GUI.skin = name_skin;
-		GUI.Label(new Rect(unit_base.x - 50f, unit_base.y, 100f, 25f), unit_name);
+		GUI.Label(new Rect(unit_base.x - 50f, unit_base.y, 100f, 25f), System.String.Format("{0:0} - {1}", Get_Level, unit_name));
 	}
 	
 	protected virtual void Check_Health() {
@@ -211,4 +216,12 @@ public class Unit : Photon.MonoBehaviour {
 		Play_Sound(hit_sound);
 		Check_Health();
 	}
+	
+	//Setters
+	public void Set_Level(int level) {
+		this.level = level;
+	}
+	
+	//Getters
+	public int Get_Level { get { return this.level;} }
 }
