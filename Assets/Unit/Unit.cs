@@ -178,7 +178,8 @@ public class Unit : Photon.MonoBehaviour {
 			Play_Sound_At_Point(death_sound, transform.position);
 			Destroy(gameObject);
 			//Update enemy list
-			if(!is_a_player && PhotonNetwork.isMasterClient) {				
+			if(!is_a_player && PhotonNetwork.isMasterClient) {		
+				photonView.RPC("Give_Experience", PhotonTargets.All);		
 				if(matchmaker != null) {
 					matchmaker.total_enemies--;
 				}

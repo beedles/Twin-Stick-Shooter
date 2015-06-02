@@ -101,6 +101,16 @@ public class Enemy : Unit {
 	
 	[RPC]
 	void Give_Experience() {
-		//Work out experience to be given
+		float experience_distance = 50f;
+		//Work out experience to be given and radius
+		GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+		foreach(GameObject player in players) {
+			float temp_distance = Vector3.Distance(transform.position, player.transform.position);
+			if(temp_distance < experience_distance) {
+				player.GetComponent<Player>().Collect_Experience(5 * Get_Level);
+			} else {
+				Debug.Log("Too far " + temp_distance);
+			}
+		}
 	}
 }

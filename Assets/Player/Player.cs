@@ -14,12 +14,16 @@ public class Player : Unit {
 	private bool spawned = false;
 	public int movement_direction = 0;
 	
+	//Statistics
+	public int experience = 0;
+	
 	protected override void Start() {		
 		base.Start();
 		gameObject.tag="Player";
 		is_a_player = true;		
 		show_name = true;
 		unit_name = GetComponent<PhotonView>().owner.name;
+		Set_Level(Get_Player_Level());
 	}
 	
 	protected override void Update() {
@@ -122,6 +126,15 @@ public class Player : Unit {
 		Debug.Log(syncTime/syncDelay);*/
 	}
 	
+	//Get the players level from server
+	private int Get_Player_Level() {
+		return 1;
+	}	
+	
+	public void Collect_Experience(int amount) {
+		photonView.RPC ("Add_Experience", PhotonTargets.All, amount);
+	}
+	
 	[RPC]
 	void Send_Fire(Vector3 input_rotation) {
 		Shoot (input_rotation);
@@ -130,5 +143,10 @@ public class Player : Unit {
 	[RPC]
 	void Do_Hit(float damage) {
 		On_Hit(damage);
+	}
+	
+	[RPC]
+	void Add_Experience(int amount){
+		this.experience += amount;
 	}
 }

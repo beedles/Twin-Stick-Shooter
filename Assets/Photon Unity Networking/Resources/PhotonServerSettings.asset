@@ -32,4 +32,6 @@ MonoBehaviour:
   - RequestForPickupTimes
   - Send_Fire
   - Give_Experience
+  - Collect_Experience
+  - Add_Experience
   DisableAutoOpenWizard: 0
