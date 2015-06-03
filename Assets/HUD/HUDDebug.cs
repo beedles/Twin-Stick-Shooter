@@ -34,15 +34,15 @@ public class HUDDebug : MonoBehaviour {
 	}
 	
 	void OnGUI() {
-		GUI.Label(new Rect(Screen.width * 0.90f, Screen.height * 0.05f, 500f, 20f), fps_string);
+		GUILayout.Label(fps_string);
 		if(PhotonNetwork.room != null) {
-			GUI.Label(new Rect(Screen.width * 0.90f, Screen.height * 0.09f, 500f, 20f), System.String.Format("{0:0} Players", PhotonNetwork.room.playerCount));
+			GUILayout.Label( System.String.Format("{0:0} Players", PhotonNetwork.room.playerCount));
 		} else {
-			GUI.Label(new Rect(Screen.width * 0.90f, Screen.height * 0.09f, 500f, 20f), System.String.Format("Waiting to join room"));
+			GUILayout.Label( System.String.Format("Waiting to join room"));
 		}
-		GUI.Label(new Rect(Screen.width * 0.90f, Screen.height * 0.13f, 500f, 20f), System.String.Format("{0:F2}x : {0:F2} y", Input.mousePosition.x, Input.mousePosition.y));
-		GUI.Label(new Rect(Screen.width * 0.90f, Screen.height * 0.17f, 500f, 20f), System.String.Format("{0:F2}x : {0:F2} y", 
+		GUILayout.Label( System.String.Format("{0:F2}x : {0:F2} y", Input.mousePosition.x, Input.mousePosition.y));
+		GUILayout.Label( System.String.Format("{0:F2}x : {0:F2} y", 
 			Camera.main.transform.position.x, Camera.main.transform.position.y));
-		GUI.Label(new Rect(Screen.width * 0.90f, Screen.height * 0.21f, 500f, 20f), System.String.Format("{0:0} Ping", PhotonNetwork.GetPing()));
+		GUILayout.Label( System.String.Format("{0:0} Ping", PhotonNetwork.GetPing()));
 	}
 }

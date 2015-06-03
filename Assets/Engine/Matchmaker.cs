@@ -10,6 +10,7 @@ public class Matchmaker : MonoBehaviour {
 	public float total_enemies = 0.0f;
 	
 	public GameObject[] enemies;
+	public Canvas player_hud;
 	
 	public bool is_alive = false;
 	public bool in_game = false;
@@ -48,7 +49,7 @@ public class Matchmaker : MonoBehaviour {
 				mode_set = true;
 			}
 		}
-		GUILayout.Label(PhotonNetwork.connectionStateDetailed.ToString());
+		//GUILayout.Label(PhotonNetwork.connectionStateDetailed.ToString());
 		if(!is_alive && in_game) {
 			GUI.Label(new Rect(Screen.width * 0.50f - 150f, Screen.height * 0.50f, 300f, 20f), System.String.Format("You Are Dead!"));	
 			GUI.Label(new Rect(Screen.width * 0.50f - 150f, Screen.height * 0.54f, 300f, 20f), System.String.Format("Press 'R' to Respawn"));	
@@ -80,18 +81,22 @@ public class Matchmaker : MonoBehaviour {
 	
 	void OnJoinedRoom() {
 		in_game = true;
-		HUDDebug player_hud = gameObject.GetComponent<HUDDebug>();
+		HUDDebug debug_hud = gameObject.GetComponent<HUDDebug>();
 		LoadWorld load_chunk = Camera.main.GetComponent<LoadWorld>();
 		load_chunk.do_map = true;
 		//GameObject.Find("Plane").GetComponent<Renderer>().enabled = true;
 		Spawn_Player();
 		spawn_enemies = true;
-		player_hud.number_of_players++;
+		debug_hud.number_of_players++;
+		//Show the player HUD
+		if(player_hud != null) {
+			player_hud.GetComponent<Canvas>().enabled = true;
+		}
 	}
 	
 	void OnLeaveRoom() {
-		HUDDebug player_hud = gameObject.GetComponent<HUDDebug>();
-		player_hud.number_of_players--;
+		HUDDebug debug_hud = gameObject.GetComponent<HUDDebug>();
+		debug_hud.number_of_players--;
 	}
 	
 	private void Enemy_Spawner() {
