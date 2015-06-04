@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class Player : Unit {
@@ -15,15 +16,36 @@ public class Player : Unit {
 	public int movement_direction = 0;
 	
 	//Statistics
-	public int experience = 0;
+	private int experience_have = 0;
+	private int experience_needed = 0;
+	
+	private GameObject hud;
+	private GameObject hud_side;
+	private GameObject hud_bottom;
 	
 	protected override void Start() {		
 		base.Start();
 		gameObject.tag="Player";
 		is_a_player = true;		
 		show_name = true;
-		unit_name = GetComponent<PhotonView>().owner.name;
+		if(!PhotonNetwork.offlineMode) {
+			unit_name = GetComponent<PhotonView>().owner.name;
+		} else {
+			unit_name = "Offline_Player";
+		}		
 		Set_Level(Get_Player_Level());
+		if(photonView.isMine) {
+			hud = GameObject.Find("HUD");
+			hud_side = hud.transform.FindChild("Side Panel").gameObject;
+			hud_bottom = hud.transform.FindChild("Bottom Panel").gameObject;
+			//Set the player name on HUD
+			hud_side.transform.FindChild("Player Name").gameObject.GetComponent<Text>().text = unit_name;
+			//Set the player class on HUD
+			hud_side.transform.FindChild("Player Class").gameObject.GetComponent<Text>().text = "Onion Knight";
+			//Default the player experience
+			hud_side.transform.FindChild("Player Experience").gameObject.GetComponent<Text>().text = 
+				"Experience " + experience_have + "/" + experience_needed;
+		}
 	}
 	
 	protected override void Update() {
@@ -33,6 +55,7 @@ public class Player : Unit {
 			Process_Movement();
 			Handle_Camera();
 			//Debug.Log(rigidbody.velocity);
+			Update_Player_HUD();
 		} else {
 			SyncedMovement();
 		}
@@ -117,6 +140,15 @@ public class Player : Unit {
 		}
 	}
 	
+	private void Update_Player_HUD() {
+	}	
+	
+	private void Update_Player_Experience() {
+		//Update Experience
+		hud_side.transform.FindChild("Player Experience").gameObject.GetComponent<Text>().text = 
+			"Experience " + experience_have + "/" + experience_needed;
+	}
+	
 	private void SyncedMovement() {
 		syncTime += Time.deltaTime;
 		GetComponent<Rigidbody>().position = Vector3.MoveTowards(syncStartPosition, syncEndPosition, movement_speed * syncTime);
@@ -147,6 +179,9 @@ public class Player : Unit {
 	
 	[RPC]
 	void Add_Experience(int amount){
-		this.experience += amount;
+		this.experience_have += amount;
+		if(photonView.isMine) {
+			Update_Player_Experience();
+		}
 	}
 }
