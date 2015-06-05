@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class Player : Unit {
+	private int experience_required_per_level = 20;
 	public float camera_height = -40.0f;
 
 	private float lastSynchronizationTime = 0f;
@@ -23,7 +24,8 @@ public class Player : Unit {
 	private GameObject hud_side;
 	private GameObject hud_bottom;
 	
-	protected override void Start() {		
+	protected override void Start() {	
+		int player_level = 0;	
 		base.Start();
 		gameObject.tag="Player";
 		is_a_player = true;		
@@ -33,7 +35,10 @@ public class Player : Unit {
 		} else {
 			unit_name = "Offline_Player";
 		}		
-		Set_Level(Get_Player_Level());
+		player_level = Get_Player_Level();
+		
+		Set_Level(player_level);
+		experience_needed = player_level * experience_required_per_level;
 		if(photonView.isMine) {
 			hud = GameObject.Find("HUD");
 			hud_side = hud.transform.FindChild("Side Panel").gameObject;
@@ -180,6 +185,12 @@ public class Player : Unit {
 	[RPC]
 	void Add_Experience(int amount){
 		this.experience_have += amount;
+		//Check if we have leveled up
+		if(this.experience_have >= this.experience_needed) {
+			this.Set_Level(Get_Level + 1);
+			//Set new experience needed
+			this.experience_needed += Get_Level * experience_required_per_level;
+		}
 		if(photonView.isMine) {
 			Update_Player_Experience();
 		}
