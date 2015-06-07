@@ -12,6 +12,9 @@ public class Unit : Photon.MonoBehaviour {
 	public float health = 50f;
 	public float max_health;
 	public float damage = 5f;
+	public float damage_min = 0f;
+	public float damage_max = 0f;
+	public float damage_modifier = 0f;
 	public bool show_name = false;
 	public string unit_name = "";
 	public GUISkin name_skin;
@@ -134,12 +137,19 @@ public class Unit : Photon.MonoBehaviour {
 			obj_created_bullet.GetComponent<Projectile>().tag = "Enemy_Projectile";
 		}
 		
+		Calculate_Damage();
+		
 		obj_created_bullet.GetComponent<Projectile>().owner = gameObject;
 		//obj_created_bullet.transform.SetParent(gameObject.transform);
 		obj_created_bullet.GetComponent<Projectile>().projectile_speed = projectile_speed;
 		obj_created_bullet.GetComponent<Projectile>().projectile_life = projectile_life;
+		obj_created_bullet.GetComponent<Projectile>().projectile_damage = damage;
 		//Physics.IgnoreCollision(obj_created_bullet.collider, collider);
 		Play_Sound(shoot_sound);
+	}
+	
+	private void Calculate_Damage() {
+		damage = Random.Range(damage_min, damage_max) + damage_modifier;
 	}
 	
 	private void Play_Sound(AudioClip sound) {

@@ -172,6 +172,17 @@ public class Player : Unit {
 		photonView.RPC ("Add_Experience", PhotonTargets.All, amount);
 	}
 	
+	private void Level_Up() {
+		this.Set_Level(Get_Level + 1);
+		//Set new experience needed
+		this.experience_needed += Get_Level * experience_required_per_level;
+		
+		//increase damage
+		this.damage_min += 2;
+		this.damage_max += 2;
+		this.damage_modifier++;
+	}
+	
 	[RPC]
 	void Send_Fire(Vector3 input_rotation) {
 		Shoot (input_rotation);
@@ -187,9 +198,7 @@ public class Player : Unit {
 		this.experience_have += amount;
 		//Check if we have leveled up
 		if(this.experience_have >= this.experience_needed) {
-			this.Set_Level(Get_Level + 1);
-			//Set new experience needed
-			this.experience_needed += Get_Level * experience_required_per_level;
+			Level_Up();			
 		}
 		if(photonView.isMine) {
 			Update_Player_Experience();

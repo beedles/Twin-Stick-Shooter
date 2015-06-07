@@ -203,6 +203,9 @@ MonoBehaviour:
   health: 20
   max_health: 0
   damage: 5
+  damage_min: 1
+  damage_max: 3
+  damage_modifier: 1
   show_name: 0
   unit_name: Baby Slime
   name_skin: {fileID: 0}

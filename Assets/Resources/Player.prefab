@@ -205,6 +205,9 @@ MonoBehaviour:
   health: 50
   max_health: 0
   damage: 5
+  damage_min: 2
+  damage_max: 4
+  damage_modifier: 3
   show_name: 1
   unit_name: Player_Name
   name_skin: {fileID: 11400000, guid: 72bcf5a56dae30e42b35781759a332ee, type: 2}

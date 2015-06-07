@@ -5,6 +5,7 @@ using TSS;
 public class Projectile : MonoBehaviour {
 	public float projectile_life = 1.0f;
 	public float projectile_speed = 1f;
+	public float projectile_damage = 0f;
 	public GameObject owner;
 	//public Texture select_skin;
 	
