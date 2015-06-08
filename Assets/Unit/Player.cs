@@ -20,8 +20,17 @@ public class Player : Unit {
 	private int experience_have = 0;
 	private int experience_needed = 0;
 	
+	//HUD container
 	private GameObject hud;
-	private GameObject hud_side;
+	
+	//HUD canvas's
+	private GameObject hud_character_canvas;
+	private GameObject hud_skills_canvas;
+	private GameObject hud_canvas;
+	
+	//HUD Panels
+	private GameObject hud_character_panel;
+	private GameObject hud_character_details;
 	private GameObject hud_bottom;
 	
 	protected override void Start() {	
@@ -41,14 +50,18 @@ public class Player : Unit {
 		experience_needed = player_level * experience_required_per_level;
 		if(photonView.isMine) {
 			hud = GameObject.Find("HUD");
-			hud_side = hud.transform.FindChild("Side Panel").gameObject;
-			hud_bottom = hud.transform.FindChild("Bottom Panel").gameObject;
+			hud_character_canvas = hud.transform.FindChild("Character Canvas").gameObject;
+			hud_character_panel = hud_character_canvas.transform.FindChild("Character Panel").gameObject;
+			hud_character_details = hud_character_canvas.transform.FindChild("Character Details").gameObject;
+			
+			hud_canvas = hud.transform.FindChild("HUD Canvas").gameObject;
+			hud_bottom = hud_canvas.transform.FindChild("Bottom Panel").gameObject;
 			//Set the player name on HUD
-			hud_side.transform.FindChild("Player Name").gameObject.GetComponent<Text>().text = unit_name;
+			hud_character_details.transform.FindChild("Player Name").gameObject.GetComponent<Text>().text = unit_name;
 			//Set the player class on HUD
-			hud_side.transform.FindChild("Player Class").gameObject.GetComponent<Text>().text = "Onion Knight";
+			hud_character_details.transform.FindChild("Player Class").gameObject.GetComponent<Text>().text = "Onion Knight";
 			//Default the player experience
-			hud_side.transform.FindChild("Player Experience").gameObject.GetComponent<Text>().text = 
+			hud_character_details.transform.FindChild("Player Experience").gameObject.GetComponent<Text>().text = 
 				"Experience " + experience_have + "/" + experience_needed;
 		}
 	}
@@ -150,7 +163,7 @@ public class Player : Unit {
 	
 	private void Update_Player_Experience() {
 		//Update Experience
-		hud_side.transform.FindChild("Player Experience").gameObject.GetComponent<Text>().text = 
+		hud_character_details.transform.FindChild("Player Experience").gameObject.GetComponent<Text>().text = 
 			"Experience " + experience_have + "/" + experience_needed;
 	}
 	

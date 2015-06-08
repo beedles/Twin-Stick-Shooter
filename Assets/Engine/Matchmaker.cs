@@ -10,7 +10,7 @@ public class Matchmaker : MonoBehaviour {
 	public float total_enemies = 0.0f;
 	
 	public GameObject[] enemies;
-	public Canvas player_hud;
+	public GameObject player_hud;
 	
 	public bool is_alive = false;
 	public bool in_game = false;
@@ -90,7 +90,7 @@ public class Matchmaker : MonoBehaviour {
 		debug_hud.number_of_players++;
 		//Show the player HUD
 		if(player_hud != null) {
-			player_hud.GetComponent<Canvas>().enabled = true;
+			player_hud.transform.FindChild("HUD Canvas").GetComponent<Canvas>().enabled = true;
 		}
 	}
 	
