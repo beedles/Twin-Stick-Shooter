@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Enemy : Unit {
-	private Vector3 target_direction = Vector3.zero;
+	private Vector3 target_direction = Vector3.zero;	
 	
 	//AI Modes
 	private enum AI_MODE{BASIC};
@@ -13,6 +13,13 @@ public class Enemy : Unit {
 						MOVE_AWAY	};
 	MOVEMENT_MODE MOVEMENT_STATE = MOVEMENT_MODE.MOVE_TOWARDS;
 
+	protected override void Awake() {
+		//Set up stats from enemy details
+		stamina = 2;
+		
+		//Set up stat helpers
+		health_per_stamina = 10;		
+	}
 	// Use this for initialization
 	protected override void Start () {
 		base.Start();

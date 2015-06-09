@@ -33,8 +33,21 @@ public class Player : Unit {
 	private GameObject hud_character_details;
 	private GameObject hud_bottom;
 	
-	protected override void Start() {	
+	protected override void Awake() {
 		int player_level = 0;	
+		player_level = Get_Player_Level();
+		
+		Set_Level(player_level);
+		experience_needed = player_level * experience_required_per_level;
+		//Set up statistics based on the class we chose and level
+		stamina = 5;
+		
+		//Set up stat helpers
+		health_per_stamina = 10;
+	}
+	
+	protected override void Start() {	
+		
 		base.Start();
 		gameObject.tag="Player";
 		is_a_player = true;		
@@ -44,10 +57,7 @@ public class Player : Unit {
 		} else {
 			unit_name = "Offline_Player";
 		}		
-		player_level = Get_Player_Level();
 		
-		Set_Level(player_level);
-		experience_needed = player_level * experience_required_per_level;
 		if(photonView.isMine) {
 			hud = GameObject.Find("HUD");
 			hud_character_canvas = hud.transform.FindChild("Character Canvas").gameObject;
@@ -194,6 +204,14 @@ public class Player : Unit {
 		this.damage_min += 2;
 		this.damage_max += 2;
 		this.damage_modifier++;
+		
+		//Increase stats based on class stat gain
+		stamina += 1;
+		
+		//Update health and max health
+		health = stamina * health_per_stamina;
+		max_health = health;
+		Debug.Log(health + "/" + max_health);
 	}
 	
 	[RPC]

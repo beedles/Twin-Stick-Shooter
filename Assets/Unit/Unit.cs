@@ -48,9 +48,18 @@ public class Unit : Photon.MonoBehaviour {
 	private float pitch_low_range = 0.9f;
 	private float pitch_high_range = 1.1f;
 	
+	//Stats
 	private int level = 0;
+	public int strength = 0;
+	public int dexterity = 0;
+	public int intelligence = 0;
+	public int wisdom = 0;
+	public int stamina = 0;
 	
-	private void Awake() {
+	//Stat helpers
+	public float health_per_stamina = 0f;
+	
+	protected virtual void Awake() {
 		source = GetComponent<AudioSource>();
 	}
 
@@ -60,6 +69,7 @@ public class Unit : Photon.MonoBehaviour {
 		center_of_unit = gameObject.GetComponent<SpriteRenderer>().bounds.center.x;
 		animator = gameObject.GetComponent<Animator>();
 		
+		health = stamina * health_per_stamina;
 		max_health = health;		
 		unit_health_bar = (GameObject)Instantiate(health_bar, new Vector3(center_of_unit, top_of_unit + 0.5f, 0), Quaternion.identity);
 		unit_health_bar.transform.SetParent(gameObject.transform);
