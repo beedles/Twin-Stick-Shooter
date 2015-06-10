@@ -42,7 +42,7 @@ public class Projectile : MonoBehaviour {
 		Destroy(gameObject);
 	}
 	
-	[RPC]
+	//[RPC]
 	void Projectile_Hit(GameObject projectile) {
 		if(gameObject == projectile) {
 			Remove_Me();

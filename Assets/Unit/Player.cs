@@ -84,9 +84,9 @@ public class Player : Unit {
 			Handle_Camera();
 			//Debug.Log(rigidbody.velocity);
 			Update_Player_HUD();
-		} else {
+		}/* else {
 			SyncedMovement();
-		}
+		}*/
 	}
 	
 	protected override void Find_Input() {

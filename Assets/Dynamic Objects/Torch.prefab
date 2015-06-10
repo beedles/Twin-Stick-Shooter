@@ -42,7 +42,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 126872}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .0738153458, y: -.110721588, z: -2}
+  m_LocalPosition: {x: .0299999993, y: .219999999, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 448728}
@@ -54,7 +54,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 110394}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.19387436, y: 4.42321301, z: 0}
+  m_LocalPosition: {x: -1.04604077, y: 2.11811399, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 421340}
@@ -135,10 +135,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wave_function: sin
-  start: 0
-  amplitude: 1
+  start: 1.10000002
+  amplitude: .200000003
   phase: 0
-  frequency: .5
+  frequency: .800000012
 --- !u!212 &21290000
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -10,10 +10,11 @@ GameObject:
   - 4: {fileID: 426116}
   - 212: {fileID: 21226116}
   - 95: {fileID: 9526116}
-  - 114: {fileID: 11450862}
   - 114: {fileID: 11455744}
   - 54: {fileID: 5456578}
   - 82: {fileID: 8298124}
+  - 114: {fileID: 11439482}
+  - 114: {fileID: 11492492}
   m_Layer: 0
   m_Name: Slime
   m_TagString: Untagged
@@ -159,7 +160,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &11450862
+--- !u!114 &11439482
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -167,23 +168,30 @@ MonoBehaviour:
   m_GameObject: {fileID: 126116}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ownerId: 0
-  group: 0
-  prefixBackup: -1
-  observed: {fileID: 0}
-  synchronization: 1
-  onSerializeTransformOption: 0
-  onSerializeRigidBodyOption: 2
-  ownershipTransfer: 0
-  ObservedComponents:
-  - {fileID: 426116}
-  ObservedComponentsFoldoutOpen: 1
-  viewIdField: 0
-  instantiationId: -1
-  isRuntimeInstantiated: 0
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 206
+    i1: 159
+    i2: 181
+    i3: 111
+    i4: 34
+    i5: 122
+    i6: 228
+    i7: 84
+    i8: 56
+    i9: 63
+    i10: 159
+    i11: 32
+    i12: 165
+    i13: 15
+    i14: 206
+    i15: 171
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!114 &11455744
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -217,6 +225,32 @@ MonoBehaviour:
   hit_sound: {fileID: 8300000, guid: 19ef69e6247acb546b259d6cf6962231, type: 3}
   death_sound: {fileID: 8300000, guid: 0c66fd49ff027c54eb1d1e7d172c55d8, type: 3}
   invulnerable: 0
+  strength: 0
+  dexterity: 0
+  intelligence: 0
+  wisdom: 0
+  stamina: 0
+  health_per_stamina: 0
+--- !u!114 &11492492
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 126116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 3
+  m_SendInterval: .100000001
+  m_SyncRotationAxis: 3
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: .00100000005
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!212 &21226116
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -249,7 +283,19 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_SendInterval
+      value: .100000001
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_TransformSyncMode
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 126116}

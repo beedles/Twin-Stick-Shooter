@@ -22,61 +22,20 @@ public class Matchmaker : NetworkManager {
 	private enum SPAWN_MODE{PLAYER,
 							SET_X_Y};
 
-	// Use this for initialization
 	void Start () {
+		
 	}
-	
-	// Update is called once per frame
+
 	void Update () {
-		/*if(PhotonNetwork.isMasterClient && spawn_enemies) {
-			Enemy_Spawner();			
-		}*/
-		if(!is_alive && in_game && Input.GetKeyDown(KeyCode.R)) {
-			//Spawn_Player();
-		}
+
 	}
 	
 	void OnGUI() {
-		if(!in_game && !mode_set) {
-			Do_Overlay();
-			
-			if(GUI.Button(new Rect(6*Screen.width/16, Screen.height/2, Screen.width/8, Screen.height/8), "Online")) {
-				//PhotonNetwork.ConnectUsingSettings("0.1");
-				mode_set = true;
-			}
-			if(GUI.Button(new Rect(8*Screen.width/16, Screen.height/2, Screen.width/8, Screen.height/8), "Offline")) {
-				/*PhotonNetwork.offlineMode = true;
-				PhotonNetwork.CreateRoom("Offline Room");*/
-				mode_set = true;
-			}
-		}
-		//GUILayout.Label(PhotonNetwork.connectionStateDetailed.ToString());
 		if(!is_alive && in_game) {
 			GUI.Label(new Rect(Screen.width * 0.50f - 150f, Screen.height * 0.50f, 300f, 20f), System.String.Format("You Are Dead!"));	
 			GUI.Label(new Rect(Screen.width * 0.50f - 150f, Screen.height * 0.54f, 300f, 20f), System.String.Format("Press 'R' to Respawn"));	
 		}
 	}
-	
-	void Do_Overlay() {
-		GUI.skin = overlay_skin;
-		GUI.BeginGroup(new Rect(0, 0, Screen.width, Screen.height));
-		GUI.Box(new Rect(0, 0, Screen.width, Screen.height), "");
-		GUI.EndGroup();
-	}
-	
-	void OnJoinedLobby() {
-		//Show Login Screen
-		gameObject.GetComponent<Login>().Show_Login_Screen();	
-		
-	}
-	
-	void OnPhotonRandomJoinFailed() {
-		//Debug.Log("Can't join random room, making a new one");
-		//PhotonNetwork.CreateRoom(null);
-	}
-	
-	//void Spawn_Player() {
-		//PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity, 0);
 	
 	public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId) {
 		GameObject player = (GameObject)Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
