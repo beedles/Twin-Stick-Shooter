@@ -27,9 +27,9 @@ public class CollisionHandler : MonoBehaviour {
 					//Remove Projectile
 					
 					//Deal damage to enemy
-					if(PhotonNetwork.isMasterClient) {
+					/*if(PhotonNetwork.isMasterClient) {
 						e.GetPhotonView().RPC ("Do_Hit", PhotonTargets.All, p.GetComponent<Projectile>().projectile_damage);
-					}
+					}*/
 					Destroy(p);
 				}
 			}
@@ -46,9 +46,9 @@ public class CollisionHandler : MonoBehaviour {
 					//Remove Projectile
 					
 					//Deal damage to enemy
-					if(PhotonNetwork.isMasterClient) {
+					/*if(PhotonNetwork.isMasterClient) {
 						e.GetPhotonView().RPC ("Do_Hit", PhotonTargets.All, p.GetComponent<Projectile>().projectile_damage);
-					}
+					}*/
 					Destroy(p);
 				}
 			}						

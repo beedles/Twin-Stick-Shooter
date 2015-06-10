@@ -35,14 +35,14 @@ public class HUDDebug : MonoBehaviour {
 	
 	void OnGUI() {
 		GUILayout.Label(fps_string);
-		if(PhotonNetwork.room != null) {
+		/*if(PhotonNetwork.room != null) {
 			GUILayout.Label( System.String.Format("{0:0} Players", PhotonNetwork.room.playerCount));
 		} else {
 			GUILayout.Label( System.String.Format("Waiting to join room"));
-		}
+		}*/
 		GUILayout.Label( System.String.Format("{0:F2}x : {0:F2} y", Input.mousePosition.x, Input.mousePosition.y));
 		GUILayout.Label( System.String.Format("{0:F2}x : {0:F2} y", 
 			Camera.main.transform.position.x, Camera.main.transform.position.y));
-		GUILayout.Label( System.String.Format("{0:0} Ping", PhotonNetwork.GetPing()));
+		//GUILayout.Label( System.String.Format("{0:0} Ping", PhotonNetwork.GetPing()));
 	}
 }

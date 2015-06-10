@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 using System.Collections;
 using TSS;
 
-public class Unit : Photon.MonoBehaviour {
+public class Unit : NetworkBehaviour {
 	public float movement_speed = 5.0f;
 	public float fire_rate = 2.0f;
 	public GameObject bullet;	
@@ -198,13 +199,13 @@ public class Unit : Photon.MonoBehaviour {
 			Play_Sound_At_Point(death_sound, transform.position);
 			Destroy(gameObject);
 			//Update enemy list
-			if(!is_a_player && PhotonNetwork.isMasterClient) {		
+			/*if(!is_a_player && PhotonNetwork.isMasterClient) {		
 				photonView.RPC("Give_Experience", PhotonTargets.All);		
 				if(matchmaker != null) {
 					matchmaker.total_enemies--;
 				}
-			}	
-			if(is_a_player && gameObject.GetComponent<PhotonView>().isMine) {
+			}	*/
+			if(is_a_player && isLocalPlayer) {
 				matchmaker.is_alive = false;
 			}
 		}

@@ -1,7 +1,8 @@
 using UnityEngine;
+using UnityEngine.Networking;
 using System.Collections;
 
-public class Matchmaker : MonoBehaviour {
+public class Matchmaker : NetworkManager {
 	public int max_enemies = 5;
 	public float spawn_rate = 2f;
 	public bool spawn_enemies = false;
@@ -27,11 +28,11 @@ public class Matchmaker : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(PhotonNetwork.isMasterClient && spawn_enemies) {
+		/*if(PhotonNetwork.isMasterClient && spawn_enemies) {
 			Enemy_Spawner();			
-		}
+		}*/
 		if(!is_alive && in_game && Input.GetKeyDown(KeyCode.R)) {
-			Spawn_Player();
+			//Spawn_Player();
 		}
 	}
 	
@@ -40,12 +41,12 @@ public class Matchmaker : MonoBehaviour {
 			Do_Overlay();
 			
 			if(GUI.Button(new Rect(6*Screen.width/16, Screen.height/2, Screen.width/8, Screen.height/8), "Online")) {
-				PhotonNetwork.ConnectUsingSettings("0.1");
+				//PhotonNetwork.ConnectUsingSettings("0.1");
 				mode_set = true;
 			}
 			if(GUI.Button(new Rect(8*Screen.width/16, Screen.height/2, Screen.width/8, Screen.height/8), "Offline")) {
-				PhotonNetwork.offlineMode = true;
-				PhotonNetwork.CreateRoom("Offline Room");
+				/*PhotonNetwork.offlineMode = true;
+				PhotonNetwork.CreateRoom("Offline Room");*/
 				mode_set = true;
 			}
 		}
@@ -71,11 +72,15 @@ public class Matchmaker : MonoBehaviour {
 	
 	void OnPhotonRandomJoinFailed() {
 		//Debug.Log("Can't join random room, making a new one");
-		PhotonNetwork.CreateRoom(null);
+		//PhotonNetwork.CreateRoom(null);
 	}
 	
-	void Spawn_Player() {
-		PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity, 0);
+	//void Spawn_Player() {
+		//PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity, 0);
+	
+	public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId) {
+		GameObject player = (GameObject)Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
+		NetworkServer.AddPlayerForConnection(conn, player, playerControllerId);
 		is_alive = true;
 	}
 	
@@ -85,7 +90,7 @@ public class Matchmaker : MonoBehaviour {
 		LoadWorld load_chunk = Camera.main.GetComponent<LoadWorld>();
 		load_chunk.do_map = true;
 		//GameObject.Find("Plane").GetComponent<Renderer>().enabled = true;
-		Spawn_Player();
+		//Spawn_Player();
 		spawn_enemies = true;
 		debug_hud.number_of_players++;
 		//Show the player HUD
@@ -106,7 +111,7 @@ public class Matchmaker : MonoBehaviour {
 			if(last_spawn_time > spawn_rate) {
 				total_enemies++;
 				last_spawn_time = 0.0f;
-				PhotonNetwork.Instantiate(enemies[Random.Range(0, enemies.GetLength(0))].name, Calculate_Spawn_Point(SPAWN_MODE.PLAYER, 0, 0), Quaternion.identity, 0);
+				//PhotonNetwork.Instantiate(enemies[Random.Range(0, enemies.GetLength(0))].name, Calculate_Spawn_Point(SPAWN_MODE.PLAYER, 0, 0), Quaternion.identity, 0);
 				//Debug.Log(PhotonNetwork.playerName + " spawned a mob");
 			}
 		}

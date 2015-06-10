@@ -52,13 +52,13 @@ public class Player : Unit {
 		gameObject.tag="Player";
 		is_a_player = true;		
 		show_name = true;
-		if(!PhotonNetwork.offlineMode) {
+		/*if(!PhotonNetwork.offlineMode) {
 			unit_name = GetComponent<PhotonView>().owner.name;
 		} else {
 			unit_name = "Offline_Player";
-		}		
+		}	*/	
 		
-		if(photonView.isMine) {
+		if(isLocalPlayer) {
 			hud = GameObject.Find("HUD");
 			hud_character_canvas = hud.transform.FindChild("Character Canvas").gameObject;
 			hud_character_panel = hud_character_canvas.transform.FindChild("Character Panel").gameObject;
@@ -78,7 +78,7 @@ public class Player : Unit {
 	
 	protected override void Update() {
 		base.Update();
-		if(photonView.isMine) {
+		if(isLocalPlayer) {
 			Find_Input();
 			Process_Movement();
 			Handle_Camera();
@@ -90,7 +90,7 @@ public class Player : Unit {
 	}
 	
 	protected override void Find_Input() {
-		if(photonView.isMine) {
+		if(isLocalPlayer) {
 			
 			temp_vector2 = new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, 0);		
 			temp_vector = Input.mousePosition;		
@@ -98,7 +98,7 @@ public class Player : Unit {
 			
 			input_rotation = temp_vector - temp_vector2;
 			if(Input.GetMouseButton(0)) {
-				photonView.RPC("Send_Fire", PhotonTargets.All, input_rotation);
+				//photonView.RPC("Send_Fire", PhotonTargets.All, input_rotation);
 			}
 		}
 	}
@@ -146,7 +146,7 @@ public class Player : Unit {
 		Camera.main.transform.eulerAngles = new Vector3(0, 0, 0);
 	}
 	
-	void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
+	/*void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
 		if(stream.isWriting) {
 			stream.SendNext(GetComponent<Rigidbody>().position);
 			stream.SendNext(GetComponent<Rigidbody>().velocity);
@@ -166,7 +166,7 @@ public class Player : Unit {
 			lastSynchronizationTime = Time.time;
 			//Debug.Log("velocity" + syncVelocity);
 		}
-	}
+	}*/
 	
 	private void Update_Player_HUD() {
 	}	
@@ -192,7 +192,7 @@ public class Player : Unit {
 	}	
 	
 	public void Collect_Experience(int amount) {
-		photonView.RPC ("Add_Experience", PhotonTargets.All, amount);
+		//photonView.RPC ("Add_Experience", PhotonTargets.All, amount);
 	}
 	
 	private void Level_Up() {
@@ -231,8 +231,8 @@ public class Player : Unit {
 		if(this.experience_have >= this.experience_needed) {
 			Level_Up();			
 		}
-		if(photonView.isMine) {
+		/*if(photonView.isMine) {
 			Update_Player_Experience();
-		}
+		}*/
 	}
 }

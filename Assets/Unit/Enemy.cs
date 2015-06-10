@@ -75,7 +75,7 @@ public class Enemy : Unit {
 				} else if (target_distance > 3){
 					MOVEMENT_STATE = MOVEMENT_MODE.MOVE_TOWARDS;
 				}
-				photonView.RPC("Send_Fire", PhotonTargets.All, input_rotation);
+				//photonView.RPC("Send_Fire", PhotonTargets.All, input_rotation);
 				break;
 			default:
 				break;

@@ -30,8 +30,8 @@ public class Login : MonoBehaviour {
 			if(player_name == "") {
 				Debug.Log ("Please Enter a Name");
 			} else {
-				PhotonNetwork.playerName = player_name;
-				PhotonNetwork.JoinRandomRoom();
+				/*PhotonNetwork.playerName = player_name;
+				PhotonNetwork.JoinRandomRoom();*/
 				show_login = false;
 			}
 		}
