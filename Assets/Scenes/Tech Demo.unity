@@ -1016,9 +1016,10 @@ MonoBehaviour:
   m_PlayerPrefab: {fileID: 155064, guid: 72e22d2bbb2ddaa468d4d261b93846bf, type: 2}
   m_AutoCreatePlayer: 1
   m_PlayerSpawnMethod: 0
-  m_OfflineScene: Tech Demo
+  m_OfflineScene: Main Menu
   m_OnlineScene: Tech Demo
-  m_SpawnPrefabs: []
+  m_SpawnPrefabs:
+  - {fileID: 126116, guid: ce9fb56f227ae454383f9f20a50fceab, type: 2}
   m_CustomConfig: 0
   m_MaxConnections: 4
   m_ConnectionConfig:
@@ -1040,7 +1041,7 @@ MonoBehaviour:
     m_MaxSentMessageQueueSize: 128
     m_IsAcksLong: 0
     m_Channels: []
-  m_Channels: 
+  m_Channels: 0500000000000000
   m_UseSimulator: 0
   m_SimulatedLatency: 1
   m_PacketLossPercentage: 0

@@ -96,17 +96,17 @@ public class Enemy : Unit {
 		return closest_player;
 	}
 	
-	[RPC]
+	//[RPC]
 	void Do_Hit(float damage) {
 		On_Hit(damage);		
 	}
 	
-	[RPC]
+	//[RPC]
 	void Send_Fire(Vector3 input_rotation) {
 		Shoot (input_rotation);
 	}
 	
-	[RPC]
+	//[RPC]
 	void Give_Experience() {
 		float experience_distance = 50f;
 		//Work out experience to be given and radius

@@ -214,17 +214,17 @@ public class Player : Unit {
 		Debug.Log(health + "/" + max_health);
 	}
 	
-	[RPC]
+	//[RPC]
 	void Send_Fire(Vector3 input_rotation) {
 		Shoot (input_rotation);
 	}
 	
-	[RPC]
+	//[RPC]
 	void Do_Hit(float damage) {
 		On_Hit(damage);
 	}
 	
-	[RPC]
+	//[RPC]
 	void Add_Experience(int amount){
 		this.experience_have += amount;
 		//Check if we have leveled up
