@@ -156,6 +156,7 @@ public class Unit : NetworkBehaviour {
 		obj_created_bullet.GetComponent<Projectile>().projectile_life = projectile_life;
 		obj_created_bullet.GetComponent<Projectile>().projectile_damage = damage;
 		//Physics.IgnoreCollision(obj_created_bullet.collider, collider);
+		
 		Play_Sound(shoot_sound);
 	}
 	
@@ -205,9 +206,6 @@ public class Unit : NetworkBehaviour {
 					matchmaker.total_enemies--;
 				}
 			}	*/
-			if(is_a_player && isLocalPlayer) {
-				matchmaker.is_alive = false;
-			}
 		}
 	}
 	

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 using System.Collections;
 
 public class Player : Unit {
@@ -98,7 +99,7 @@ public class Player : Unit {
 			
 			input_rotation = temp_vector - temp_vector2;
 			if(Input.GetMouseButton(0)) {
-				//photonView.RPC("Send_Fire", PhotonTargets.All, input_rotation);
+				CmdSend_Fire(input_rotation);
 			}
 		}
 	}
@@ -214,8 +215,8 @@ public class Player : Unit {
 		Debug.Log(health + "/" + max_health);
 	}
 	
-	//[RPC]
-	void Send_Fire(Vector3 input_rotation) {
+	[Command]
+	void CmdSend_Fire(Vector3 input_rotation) {
 		Shoot (input_rotation);
 	}
 	

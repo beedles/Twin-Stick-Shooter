@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System.Collections;
 
 public class Enemy : Unit {
@@ -75,7 +76,7 @@ public class Enemy : Unit {
 				} else if (target_distance > 3){
 					MOVEMENT_STATE = MOVEMENT_MODE.MOVE_TOWARDS;
 				}
-				//photonView.RPC("Send_Fire", PhotonTargets.All, input_rotation);
+				CmdSend_Fire(input_rotation);
 				break;
 			default:
 				break;
@@ -101,8 +102,8 @@ public class Enemy : Unit {
 		On_Hit(damage);		
 	}
 	
-	//[RPC]
-	void Send_Fire(Vector3 input_rotation) {
+	[Command]
+	void CmdSend_Fire(Vector3 input_rotation) {
 		Shoot (input_rotation);
 	}
 	

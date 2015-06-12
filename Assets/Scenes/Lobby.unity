@@ -140,7 +140,7 @@ MonoBehaviour:
   m_PlayerPrefab: {fileID: 0}
   m_AutoCreatePlayer: 1
   m_PlayerSpawnMethod: 0
-  m_OfflineScene: Main Menu
+  m_OfflineScene: Lobby
   m_OnlineScene: 
   m_SpawnPrefabs: []
   m_CustomConfig: 0
@@ -180,7 +180,7 @@ MonoBehaviour:
   m_LobbyPlayerPrefab: {fileID: 11406050, guid: 5d45c7ee812d9e54a939cef52451250c,
     type: 2}
   m_GamePlayerPrefab: {fileID: 155064, guid: 72e22d2bbb2ddaa468d4d261b93846bf, type: 2}
-  m_LobbyScene: Main Menu
+  m_LobbyScene: Lobby
   m_PlayScene: Tech Demo
   lobbySlots: []
 --- !u!4 &1601374250
