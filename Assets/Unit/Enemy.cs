@@ -76,7 +76,9 @@ public class Enemy : Unit {
 				} else if (target_distance > 3){
 					MOVEMENT_STATE = MOVEMENT_MODE.MOVE_TOWARDS;
 				}
-				CmdSend_Fire(input_rotation);
+				if(isServer) {
+					CmdSend_Fire(input_rotation);
+				}
 				break;
 			default:
 				break;

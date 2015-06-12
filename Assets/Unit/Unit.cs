@@ -157,6 +157,8 @@ public class Unit : NetworkBehaviour {
 		obj_created_bullet.GetComponent<Projectile>().projectile_damage = damage;
 		//Physics.IgnoreCollision(obj_created_bullet.collider, collider);
 		
+		NetworkServer.Spawn(obj_created_bullet);
+		
 		Play_Sound(shoot_sound);
 	}
 	

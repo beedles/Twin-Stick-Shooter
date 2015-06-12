@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System.Collections;
 using TSS;
 
-public class CollisionHandler : MonoBehaviour {
+public class CollisionHandler : NetworkBehaviour {
 
 	// Use this for initialization
 	void Start () {

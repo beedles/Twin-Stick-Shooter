@@ -6,7 +6,6 @@ public class World : MonoBehaviour {
 	public Dictionary<WorldPos, Chunk> chunks = new Dictionary<WorldPos, Chunk>();
 	public Dictionary<WorldPos, Dynamic_Object> ground_objects = new Dictionary<WorldPos, Dynamic_Object>();
 	public GameObject chunk_prefab;
-	public GameObject ground_object_prefab;
 	
 	public void Create_Chunk(int x, int y, int z) {
 		WorldPos world_pos = new WorldPos(x, y, z);
@@ -21,15 +20,6 @@ public class World : MonoBehaviour {
 		
 		var terrain_gen = new TerrainGen();
 		new_chunk = terrain_gen.Chunk_Gen(new_chunk);
-	}
-	
-	public void Create_Ground_Object(int x, int y, int z) {
-		WorldPos world_pos = new WorldPos(x, y, z);
-		GameObject new_ground_object = Instantiate(ground_object_prefab, new Vector3(x, y, z), Quaternion.Euler(Vector3.zero)) as GameObject;
-		Dynamic_Object ground_object = new_ground_object.GetComponent<Dynamic_Object>();
-		
-		//new_ground_object.po
-		
 	}
 	
 	public void Destroy_Chunk(int x, int y, int z) {

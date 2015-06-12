@@ -7,14 +7,8 @@ public class Player : Unit {
 	private int experience_required_per_level = 20;
 	public float camera_height = -40.0f;
 
-	private float lastSynchronizationTime = 0f;
-	private float syncDelay = 0f;
-	private float syncTime = 0f;
-	private Vector3 syncStartPosition = Vector3.zero;
-	private Vector3 syncEndPosition = Vector3.zero;
 	private Vector3 temp_vector;
 	private Vector3 temp_vector2;
-	private bool spawned = false;
 	public int movement_direction = 0;
 	
 	//Statistics
@@ -64,6 +58,7 @@ public class Player : Unit {
 			hud_character_canvas = hud.transform.FindChild("Character Canvas").gameObject;
 			hud_character_panel = hud_character_canvas.transform.FindChild("Character Panel").gameObject;
 			hud_character_details = hud_character_canvas.transform.FindChild("Character Details").gameObject;
+			hud_bottom
 			
 			hud_canvas = hud.transform.FindChild("HUD Canvas").gameObject;
 			hud_bottom = hud_canvas.transform.FindChild("Bottom Panel").gameObject;
@@ -85,9 +80,7 @@ public class Player : Unit {
 			Handle_Camera();
 			//Debug.Log(rigidbody.velocity);
 			Update_Player_HUD();
-		}/* else {
-			SyncedMovement();
-		}*/
+		}
 	}
 	
 	protected override void Find_Input() {
@@ -147,28 +140,6 @@ public class Player : Unit {
 		Camera.main.transform.eulerAngles = new Vector3(0, 0, 0);
 	}
 	
-	/*void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
-		if(stream.isWriting) {
-			stream.SendNext(GetComponent<Rigidbody>().position);
-			stream.SendNext(GetComponent<Rigidbody>().velocity);
-		} else {
-			Vector3 syncPosition = (Vector3)stream.ReceiveNext();
-			Vector3 syncVelocity = (Vector3)stream.ReceiveNext();
-			syncEndPosition = syncPosition + syncVelocity * syncDelay;
-			if(!spawned) {
-				syncStartPosition = syncEndPosition;
-				spawned = true;
-			} else {
-				syncStartPosition = GetComponent<Rigidbody>().position;
-			}
-			
-			syncTime = 0f;
-			syncDelay = Time.time - lastSynchronizationTime;
-			lastSynchronizationTime = Time.time;
-			//Debug.Log("velocity" + syncVelocity);
-		}
-	}*/
-	
 	private void Update_Player_HUD() {
 	}	
 	
@@ -176,15 +147,6 @@ public class Player : Unit {
 		//Update Experience
 		hud_character_details.transform.FindChild("Player Experience").gameObject.GetComponent<Text>().text = 
 			"Experience " + experience_have + "/" + experience_needed;
-	}
-	
-	private void SyncedMovement() {
-		syncTime += Time.deltaTime;
-		GetComponent<Rigidbody>().position = Vector3.MoveTowards(syncStartPosition, syncEndPosition, movement_speed * syncTime);
-		/*Debug.Log(rigidbody.position);
-		Debug.Log(syncTime);
-		Debug.Log(syncDelay);
-		Debug.Log(syncTime/syncDelay);*/
 	}
 	
 	//Get the players level from server
