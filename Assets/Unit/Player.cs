@@ -58,10 +58,12 @@ public class Player : Unit {
 			hud_character_canvas = hud.transform.FindChild("Character Canvas").gameObject;
 			hud_character_panel = hud_character_canvas.transform.FindChild("Character Panel").gameObject;
 			hud_character_details = hud_character_canvas.transform.FindChild("Character Details").gameObject;
-			hud_bottom
+			
+			hud_skills_canvas = hud.transform.FindChild("Skills Canvas").gameObject;
 			
 			hud_canvas = hud.transform.FindChild("HUD Canvas").gameObject;
 			hud_bottom = hud_canvas.transform.FindChild("Bottom Panel").gameObject;
+			
 			//Set the player name on HUD
 			hud_character_details.transform.FindChild("Player Name").gameObject.GetComponent<Text>().text = unit_name;
 			//Set the player class on HUD
@@ -84,16 +86,19 @@ public class Player : Unit {
 	}
 	
 	protected override void Find_Input() {
-		if(isLocalPlayer) {
-			
-			temp_vector2 = new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, 0);		
-			temp_vector = Input.mousePosition;		
-			//temp_vector.y = temp_vector2.y;					
-			
-			input_rotation = temp_vector - temp_vector2;
-			if(Input.GetMouseButton(0)) {
-				CmdSend_Fire(input_rotation);
-			}
+		temp_vector2 = new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, 0);		
+		temp_vector = Input.mousePosition;		
+		//temp_vector.y = temp_vector2.y;					
+		
+		input_rotation = temp_vector - temp_vector2;
+		if(Input.GetMouseButton(0)) {
+			CmdSend_Fire(input_rotation);
+		}
+		if(Input.GetKeyUp(KeyCode.C)) {
+			hud_character_canvas.GetComponent<Canvas>().enabled = !hud_character_canvas.GetComponent<Canvas>().enabled;
+		}
+		if(Input.GetKeyUp(KeyCode.B)) {
+			hud_skills_canvas.GetComponent<Canvas>().enabled = !hud_skills_canvas.GetComponent<Canvas>().enabled;
 		}
 	}
 
