@@ -91,8 +91,13 @@ public class Player : Unit {
 		//temp_vector.y = temp_vector2.y;					
 		
 		input_rotation = temp_vector - temp_vector2;
-		if(Input.GetMouseButton(0)) {
-			CmdSend_Fire(input_rotation);
+		if(Input.GetMouseButton(0)) {			
+			if(!isServer) {
+				CmdSend_Fire(input_rotation);				
+			} else {
+				RpcSend_Fire(input_rotation);
+			}
+			Shoot (input_rotation);
 		}
 		if(Input.GetKeyUp(KeyCode.C)) {
 			hud_character_canvas.GetComponent<Canvas>().enabled = !hud_character_canvas.GetComponent<Canvas>().enabled;
@@ -184,6 +189,11 @@ public class Player : Unit {
 	
 	[Command]
 	void CmdSend_Fire(Vector3 input_rotation) {
+		Shoot (input_rotation);
+	}
+	
+	[ClientRpc]
+	void RpcSend_Fire(Vector3 input_rotation) {
 		Shoot (input_rotation);
 	}
 	

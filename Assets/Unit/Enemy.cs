@@ -77,7 +77,7 @@ public class Enemy : Unit {
 					MOVEMENT_STATE = MOVEMENT_MODE.MOVE_TOWARDS;
 				}
 				if(isServer) {
-					CmdSend_Fire(input_rotation);
+					RpcSend_Fire(input_rotation);
 				}
 				break;
 			default:
@@ -104,8 +104,8 @@ public class Enemy : Unit {
 		On_Hit(damage);		
 	}
 	
-	[Command]
-	void CmdSend_Fire(Vector3 input_rotation) {
+	[ClientRpc]
+	void RpcSend_Fire(Vector3 input_rotation) {
 		Shoot (input_rotation);
 	}
 	
