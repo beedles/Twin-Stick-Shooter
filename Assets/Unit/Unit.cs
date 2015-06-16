@@ -10,6 +10,7 @@ public class Unit : NetworkBehaviour {
 	public GameObject bullet;	
 	public float projectile_speed = 0.4f;
 	public float projectile_life = 1.0f;
+	[SyncVar]
 	public float health = 50f;
 	public float max_health;
 	public float damage = 5f;
@@ -202,12 +203,12 @@ public class Unit : NetworkBehaviour {
 			Play_Sound_At_Point(death_sound, transform.position);
 			Destroy(gameObject);
 			//Update enemy list
-			/*if(!is_a_player && PhotonNetwork.isMasterClient) {		
-				photonView.RPC("Give_Experience", PhotonTargets.All);		
+			if(!is_a_player && isServer) {		
+			    Give_Experience();	
 				if(matchmaker != null) {
 					matchmaker.total_enemies--;
 				}
-			}	*/
+			}
 		}
 	}
 	
@@ -248,4 +249,18 @@ public class Unit : NetworkBehaviour {
 	public int Get_Level { get { return this.level;} }
 	
 	//ServerCmd
+
+	void Give_Experience() {
+		float experience_distance = 50f;
+		//Work out experience to be given and radius
+		GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+		foreach(GameObject player in players) {
+			float temp_distance = Vector3.Distance(transform.position, player.transform.position);
+			if(temp_distance < experience_distance) {
+				player.GetComponent<Player>().Collect_Experience(5 * Get_Level);
+			} else {
+				Debug.Log("Too far " + temp_distance);
+			}
+		}
+	}
 }

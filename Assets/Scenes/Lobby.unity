@@ -183,7 +183,7 @@ MonoBehaviour:
     type: 2}
   m_GamePlayerPrefab: {fileID: 155064, guid: 72e22d2bbb2ddaa468d4d261b93846bf, type: 2}
   m_LobbyScene: Lobby
-  m_PlayScene: Tech Demo
+  m_PlayScene: MainLevel
   lobbySlots: []
 --- !u!4 &1601374250
 Transform:

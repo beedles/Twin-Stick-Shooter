@@ -99,28 +99,21 @@ public class Enemy : Unit {
 		return closest_player;
 	}
 	
-	//[RPC]
-	void Do_Hit(float damage) {
-		On_Hit(damage);		
+	public void Take_Damage(float damage) {
+		if(!isServer) {
+			return;
+		}
+		
+		RpcDo_Hit(damage);
+	}
+	
+	[ClientRpc]
+	void RpcDo_Hit(float damage) {
+		On_Hit(damage);
 	}
 	
 	[ClientRpc]
 	void RpcSend_Fire(Vector3 input_rotation) {
 		Shoot (input_rotation);
-	}
-	
-	//[RPC]
-	void Give_Experience() {
-		float experience_distance = 50f;
-		//Work out experience to be given and radius
-		GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-		foreach(GameObject player in players) {
-			float temp_distance = Vector3.Distance(transform.position, player.transform.position);
-			if(temp_distance < experience_distance) {
-				player.GetComponent<Player>().Collect_Experience(5 * Get_Level);
-			} else {
-				Debug.Log("Too far " + temp_distance);
-			}
-		}
 	}
 }

@@ -165,7 +165,11 @@ public class Player : Unit {
 	}	
 	
 	public void Collect_Experience(int amount) {
-		//photonView.RPC ("Add_Experience", PhotonTargets.All, amount);
+		if(!isServer) {
+			return;
+		}
+		RpcAdd_Experience(amount);
+		Add_Experience(amount);
 	}
 	
 	private void Level_Up() {
@@ -197,20 +201,33 @@ public class Player : Unit {
 		Shoot (input_rotation);
 	}
 	
-	//[RPC]
-	void Do_Hit(float damage) {
+	public void Take_Damage(float damage) {
+		if(!isServer) {
+			return;
+		}
+		
+		RpcDo_Hit(damage);
 		On_Hit(damage);
 	}
 	
-	//[RPC]
+	[ClientRpc]
+	void RpcDo_Hit(float damage) {
+		On_Hit(damage);
+	}
+	
+	[ClientRpc]
+	void RpcAdd_Experience(int amount){
+		Add_Experience(amount);
+	}
+	
 	void Add_Experience(int amount){
 		this.experience_have += amount;
 		//Check if we have leveled up
 		if(this.experience_have >= this.experience_needed) {
 			Level_Up();			
 		}
-		/*if(photonView.isMine) {
+		if(isLocalPlayer) {
 			Update_Player_Experience();
-		}*/
+		}
 	}
 }

@@ -4,12 +4,6 @@ using System.Collections;
 using TSS;
 
 public class CollisionHandler : NetworkBehaviour {
-
-	// Use this for initialization
-	void Start () {
-
-	}
-	
 	// Update is called once per frame
 	void Update () {
 		GameObject[] player_projectiles = GameObject.FindGameObjectsWithTag("Player_Projectile");
@@ -24,13 +18,10 @@ public class CollisionHandler : NetworkBehaviour {
 				   (a.x + a.width) > b.x &&
 				   a.y < (b.y + b.height) &&
 				   (a.y + a.height) > b.y) {
-					//Hit Detected
-					//Remove Projectile
-					
-					//Deal damage to enemy
-					/*if(PhotonNetwork.isMasterClient) {
-						e.GetPhotonView().RPC ("Do_Hit", PhotonTargets.All, p.GetComponent<Projectile>().projectile_damage);
-					}*/
+
+					if(isServer) {
+						e.GetComponent<Enemy>().Take_Damage(p.GetComponent<Projectile>().projectile_damage);
+					}
 					Destroy(p);
 				}
 			}
@@ -43,13 +34,10 @@ public class CollisionHandler : NetworkBehaviour {
 				   (a.x + a.width) > b.x &&
 				   a.y < (b.y + b.height) &&
 				   (a.y + a.height) > b.y) {
-					//Hit Detected
-					//Remove Projectile
-					
-					//Deal damage to enemy
-					/*if(PhotonNetwork.isMasterClient) {
-						e.GetPhotonView().RPC ("Do_Hit", PhotonTargets.All, p.GetComponent<Projectile>().projectile_damage);
-					}*/
+
+					if(isServer) {
+						e.GetComponent<Player>().Take_Damage(p.GetComponent<Projectile>().projectile_damage);
+					}					
 					Destroy(p);
 				}
 			}						
