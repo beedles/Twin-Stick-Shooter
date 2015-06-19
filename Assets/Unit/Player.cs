@@ -28,7 +28,13 @@ public class Player : Unit {
 	private GameObject hud_character_details;
 	private GameObject hud_bottom;
 	
+	public bool is_spawned = false;
+	public bool is_alive = false;
+	private SpriteRenderer sprite_renderer;
+	
 	protected override void Awake() {
+		sprite_renderer = gameObject.GetComponent<SpriteRenderer>();
+		sprite_renderer.enabled = false;
 		int player_level = 0;	
 		player_level = Get_Player_Level();
 		
@@ -75,6 +81,9 @@ public class Player : Unit {
 	}
 	
 	protected override void Update() {
+		if(!is_spawned || !is_alive) {
+			return;
+		}
 		base.Update();
 		if(isLocalPlayer) {
 			Find_Input();
@@ -82,6 +91,9 @@ public class Player : Unit {
 			Handle_Camera();
 			//Debug.Log(rigidbody.velocity);
 			Update_Player_HUD();
+		}
+		if(is_spawned && !sprite_renderer.enabled) {
+			sprite_renderer.enabled = true;
 		}
 	}
 	
@@ -190,6 +202,8 @@ public class Player : Unit {
 		max_health = health;
 		Debug.Log(health + "/" + max_health);
 	}
+	
+	public bool Has_Spawned { get { return this.is_spawned;} }
 	
 	[Command]
 	void CmdSend_Fire(Vector3 input_rotation) {
