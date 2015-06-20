@@ -90,8 +90,11 @@ public class Enemy : Unit {
 		float closest_player_distance = Mathf.Infinity;
 		GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 		foreach(GameObject player in players) {
+			if(!player.GetComponent<Player>().Has_Spawned) {
+				continue;
+			}
 			float temp_distance = Vector3.Distance(enemy_location, player.transform.position);
-			if(temp_distance < closest_player_distance && player.GetComponent<Player>().Has_Spawned) {
+			if(temp_distance < closest_player_distance) {
 				closest_player = player;
 				closest_player_distance = temp_distance;
 			}

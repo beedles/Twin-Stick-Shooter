@@ -31,10 +31,19 @@ public class Player : Unit {
 	public bool is_spawned = false;
 	public bool is_alive = false;
 	private SpriteRenderer sprite_renderer;
+	private Animator animator;
+	private GameObject character_screen;
+	private Canvas character_screen_canvas;
 	
 	protected override void Awake() {
 		sprite_renderer = gameObject.GetComponent<SpriteRenderer>();
+		animator = gameObject.GetComponent<Animator>();
+		character_screen = GameObject.Find("Character Screen");
+		character_screen_canvas = character_screen.GetComponent<Canvas>();
+		
 		sprite_renderer.enabled = false;
+		animator.enabled = false;
+		
 		int player_level = 0;	
 		player_level = Get_Player_Level();
 		
@@ -52,7 +61,6 @@ public class Player : Unit {
 		base.Start();
 		gameObject.tag="Player";
 		is_a_player = true;		
-		show_name = true;
 		/*if(!PhotonNetwork.offlineMode) {
 			unit_name = GetComponent<PhotonView>().owner.name;
 		} else {
@@ -81,6 +89,7 @@ public class Player : Unit {
 	}
 	
 	protected override void Update() {
+		//Once player name entered, we set is_spawned and is_alive to be true
 		if(!is_spawned || !is_alive) {
 			return;
 		}
@@ -93,7 +102,10 @@ public class Player : Unit {
 			Update_Player_HUD();
 		}
 		if(is_spawned && !sprite_renderer.enabled) {
+			character_screen_canvas.enabled = false;
 			sprite_renderer.enabled = true;
+			animator.enabled = true;
+			show_name = true;
 		}
 	}
 	

@@ -22,4 +22,8 @@ public struct WorldPos {
 			return true;
 		}
 	}
+	
+	public override int GetHashCode() {
+		return base.GetHashCode();
+	}
 }
